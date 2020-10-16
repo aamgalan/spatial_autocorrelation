@@ -33,4 +33,4 @@ Curtis B, Giorgi S, Buffone AEK, Ungar LH, Ashford RD, et al. (2018) Can Twitter
 The dataset used in the example of time-series features with preserved coordinates is from:
 
 Lilianne R. Mujica-Parodi, Anar Amgalan, Syed Fahad Sultan, Botond Antal, Xiaofei Sun, Steven Skiena, Andrew Lithen, Noor Adra, Eva-Maria Ratai, Corey Weistuch, Sindhuja Tirumalai Govindarajan, Helmut H. Strey, Ken A. Dill, Steven M. Stufflebeam, Richard L. Veech, Kieran Clarke
-Proceedings of the National Academy of Sciences Mar 2020, 117 (11) 6170-6177; DOI: 10.1073/pnas.1913042117 
+Proceedings of the National Academy of Sciences Mar 2020, 117 (11) 6170-6177; DOI: https://doi.org/10.1073/pnas.1913042117 
