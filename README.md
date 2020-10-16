@@ -17,23 +17,14 @@ The statistic and the algorithm are introduced in ICDM 2020 (archive link or DOI
 ## Dependencies
 
 
-* python >= 3.6.8
-* numpy >= 1.14.3
-* scipy >= 1.1.0
+* python3 
+* numpy 
+* scipy 
 
 
 ## Datasets
 
 
-The datasets used in the paper are 
-
-
-* PPI
-* PPI-large (a larger version of PPI)
-* Reddit
-* Flickr
-* Yelp
-* Amazon
-* ogbn-products
-* ... (more to be added)
-
+The datasets used in the paper are mainly from:
+Can Twitter be used to predict county excessive alcohol consumption rates?
+Curtis B, Giorgi S, Buffone AEK, Ungar LH, Ashford RD, et al. (2018) Can Twitter be used to predict county excessive alcohol consumption rates?. PLOS ONE 13(4): e0194290. https://doi.org/10.1371/journal.pone.0194290
