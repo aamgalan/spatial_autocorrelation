@@ -1,15 +1,25 @@
-import scipy as sp, numpy as np  # pandas as pd, itertools as it
+#!/usr/bin/env python 
+# -*- coding: utf-8 -*-
+
+"""S_A.py: The main routine for computing the fast spatial autocorrelation."""
+
+import scipy as sp, numpy as np
 from scipy.spatial import Delaunay
 from scipy.cluster.hierarchy import dendrogram, linkage
 from disjoint_set import DisjointSet
 
+__author__ = "Anar Amgalan"
+__credits__ = ["Anar Amgalan", "Steven S. Skiena", "Lilianne R. Mujica-Parodi"]
+__version__ = "1.0"
+__maintainer__ = "Anar Amgalan"
 
-def get_edges_from_linkage_matrix(Z, n_node):
+
+def get_edges_from_linkage_matrix(linkage_Z, n_node):
     """turn the outputs of linkage into a merge order
 
     Parameters
     ----------
-    Z : Z output of linkage
+    linkage_Z : linkage_Z output of linkage
 
     n_node : int
 
@@ -26,7 +36,7 @@ def get_edges_from_linkage_matrix(Z, n_node):
     cluster_to_node = {}
     edges = []
 
-    for i_cluster, cluster in enumerate(Z):
+    for i_cluster, cluster in enumerate(linkage_Z):
 
         if cluster[0] < n_node:
             cluster_to_node[i_cluster + n_node] = int(cluster[0])
@@ -76,17 +86,23 @@ def get_mst_merge_order(coordinates):
 
     """
 
-    # TODO TODO does Delaunay used 0-based indexing for edges?
     delaunay_edges = []
+
     for simplex in Delaunay(coordinates).simplices:
+
         delaunay_edges.append(sorted([simplex[0], simplex[1]]))
         delaunay_edges.append(sorted([simplex[0], simplex[2]]))
         delaunay_edges.append(sorted([simplex[1], simplex[2]]))
+        
+    # some diagnostic outputs, that aren't necessary anymore
     # print(len(delaunay_edges), ' edges in Delaunay triangulation')
     # delaunay_edges = np.array(sorted(delaunay_edges))[np.arange(0, len(delaunay_edges), 2)]
     # print(len(delaunay_edges), ' edges in Delaunay triangulation')
+
     delaunay_edges_weighted = []
+
     for delaunay_edge in delaunay_edges:
+
         delaunay_edges_weighted.append(
             [
                 delaunay_edge[0],
@@ -96,10 +112,13 @@ def get_mst_merge_order(coordinates):
                 ),
             ]
         )
+        
+    # some diagnostic outputs, that aren't necessary anymore
     # print(delaunay_edges_weighted[:10])
     # print(delaunay_edges_weighted[-10:])
-    edges = range(len(coordinates))
-    g = graph(edges, delaunay_edges_weighted)  # TODO TODO rename edges to vertices
+    
+    vertices = range(len(coordinates))
+    g = graph(vertices, delaunay_edges_weighted)
     mst = g.kruskal()
     mst_order = [edge[:2] for edge in mst]
 
@@ -135,31 +154,30 @@ class graph(object):
         return self.mst
 
 
-def SkienaA(quantities, merge_order, rescaled_scalar=True):
+def SkienaA(z, merge_order, rescaled_scalar=True):
     """the main algorithm computing the S_A statistic
-    from quantities (z_i) and merge_order
+    from z (z_i in the publication) and merge_order
 
     Parameters
     ----------
-    quantities : List of real numbers
+    z : List of N real numbers
 
-    merge_order :
+    merge_order : a legitimate merge order defined on the N vertices 
+    
+    rescaled_scalar : Boolean, whether to return a single real value in [-1, 1]
 
 
     """
 
-    # TODO check that the dimensions of quantities and merge_order match up
-    # TODO check that merge_order is a legal one
+    # TODO check that merge_order is legitimate and matches z in size
 
-    # TODO maybe estimate the size ???
-
-    n_V = len(quantities)
+    n_V = len(z)
     variance_sum = 0.0
     variance_mean_running = [0.0]
     ds = DisjointSet()
     # vertex_to_cluster = dict(zip(range(n_V), range(n_V)))
     cluster_info = []
-    for vertex_id, vertex_quantity in zip(range(n_V), quantities):
+    for vertex_id, vertex_quantity in zip(range(n_V), z):
         cluster_info.append(
             {"size": 1, "mean": vertex_quantity, "variance": 0}  # 'id':vertex_id,
         )
@@ -201,7 +219,8 @@ def SkienaA(quantities, merge_order, rescaled_scalar=True):
         cluster_info_2["mean"] = mean_12
 
         variance_mean_running.append(variance_sum / n_V)
-
+        
+        # some diagnostic outputs, that aren't necessary anymore
         # print(cluster_combined['size'], cluster_combined['variance'], np.sqrt(variance_sum/n_V))
         # print(cluster_info_2['size'], cluster_info_2['variance'])
 
@@ -211,4 +230,4 @@ def SkienaA(quantities, merge_order, rescaled_scalar=True):
 
         return 2.0 * (1.0 - skienaA) - 1.0
 
-    return variance_mean_running  # 0 # cluster_info
+    return variance_mean_running
