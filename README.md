@@ -1,6 +1,6 @@
 # Fast Spatial Autocorrelation
 
-**Contact**
+**Contacts**
 
 Anar Amgalan (anar.amgalan@stonybrook.edu) and Steven S. Skiena (skiena@cs.stonybrook.edu)
 
@@ -20,6 +20,7 @@ The statistic and the algorithm are introduced in ICDM 2020 (archive link or DOI
 * python3 
 * numpy 
 * scipy 
+* disjoint_set
 
 
 ## Datasets
