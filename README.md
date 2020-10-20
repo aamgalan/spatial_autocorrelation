@@ -11,7 +11,7 @@ Several examples of variable/feature values with spatial coordinates:
 ![The trace of within-cluster squared deviations](plot-pub-75-15_spatial_skiena_trace_3-panel_lin-trans.png)
 
 This repository contains a simple algorithm for fast computation of spatial autocorrelation. 
-The statistic and the algorithm are introduced in ICDM 2020 (archive link or DOI identifier). 
+The statistic and the algorithm are introduced in ICDM 2020 (archive link: https://arxiv.org/abs/2010.08676). 
 
 
 ## Dependencies
