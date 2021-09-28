@@ -2,7 +2,7 @@
 
 **Contacts**
 
-Anar Amgalan (anar.amgalan@stonybrook.edu) and Steven S. Skiena (skiena@cs.stonybrook.edu)
+Anar Amgalan (anar.amgalan@alumni.stonybrook.edu) and Steven S. Skiena (skiena@cs.stonybrook.edu)
 
 Several examples of variable/feature values with spatial coordinates:
 
